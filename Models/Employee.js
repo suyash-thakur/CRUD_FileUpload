@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+var mongoose = require('mongoose');
 
 employeeSchema = mongoose.Schema({
     fileName: [{ type: mongoose.Schema.Types.ObjectId, ref: 'File' }]
