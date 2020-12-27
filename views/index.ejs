@@ -1,3 +1,41 @@
 <h1>Admin Page</h1>
-
+<% if (locals.error) { %>
+    <div style="color: red;" role="alert">
+        <%= error %>
+    </div>
+<% } %>
+<% if (locals.msg) { %>
+    <div style="color: green;" role="alert">
+        <%= msg %>
+    </div>
+<% } %>
 <h3>Create Employee</h3>
+<div style="display: flex;">
+    <div>
+        <form method="POST" action="/createEmp">
+            <input placeholder="Employee-Id" name="employee"> <input type="submit" placeholder="Create employee">
+        </form>
+    </div>
+</div>
+<h3>Upload File</h3>
+<form action="/upload" method="POST" enctype="multipart/form-data">
+    <input type="file" name="uploadedFiles" value="uploading_file" multiple>
+    <input type="submit" value="upload file">
+  </form>
+<h3>All Employee</h3>
+
+<% for(var i=0; i < employee.length; i++) { %>
+    <div><b><%= employee[i]._id %></b></div>
+    <br>
+    <form action="/deleteEmp" method="post">
+        <input value="<%= employee[i]._id %>" type="hidden" name="id">
+        <input type="submit" name="delete" value="Delete" />
+    </form>
+    <p>Files-:</p> 
+    <% for(var j=0; j < employee[i].fileName.length; j++) { %>
+        <a a href="<%= employee[i].fileName[j].URL %>" target="new"><%= employee[i].fileName[j].name %></a>
+        <br>
+        <br>
+        <% } %>
+        <hr>
+<% } %>
